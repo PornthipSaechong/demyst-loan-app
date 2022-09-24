@@ -8,34 +8,27 @@ export class BusinessDetails extends Component {
       error: null,
       isLoaded: null,
       items: [],
-      businessName: "",
+      business: "",
+      businesses: [],
+      providers: [],
+      provider: ""
     };
   }
 
-  continue = e => {
-    e.preventDefault();
+  componentDidMount = () => {
+    // initialize app
     this.setState({ isLoaded: false })
-
-    const businessName = this.state['businessName']
-    console.log('calling businessName', businessName)
-    fetch("https://dummyjson.com/products/1")
+    fetch("http://localhost:5000/v1/users/username/business")
       .then(res => res.json())
       .then(
         (result) => {
 
-          const providers = [{ 'k': 'p1', 'v': 'XERO' }, { 'k': 'p2', 'v': 'MYOB' }]
-          const year = 2020
           this.setState({
             isLoaded: true,
-            // items: result.items
+            businesses: result.data,
+            business: result.data[0].id
           });
-          this.props.saveData('businessYear')(2020)
-          this.props.saveData('providers')(providers)
-          this.props.nextStep();    
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,
@@ -43,14 +36,51 @@ export class BusinessDetails extends Component {
           });
         }
       )
+
+    fetch("http://localhost:5000/v1/users/username/providers")
+      .then(res => res.json())
+      .then(
+        (result) => {
+
+          this.setState({
+            isLoaded: true,
+            providers: result.data,
+            provider: result.data[0].id
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
+
+  continue = e => {
+    e.preventDefault();
+
+    const {business, businesses, provider, providers} = this.state
+    
+    const selectedBusiness = businesses.filter(b => b.id === business)
+    const selectedProvider = providers.filter(p => p.id === provider)
+    this.props.saveData('business')(selectedBusiness[0])
+    this.props.saveData('provider')(selectedProvider[0])
+    this.props.nextStep();
+  };
+
+  handleState = input => e => {
+    this.setState({ [input]: e.target.value });
   };
 
   render() {
-    const { values, handleChange } = this.props;
-    const { error, isLoaded, items } = this.state;
+    const { handleChange } = this.props;
+    const { error, isLoaded, businesses, providers } = this.state;
+
+    
     if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (isLoaded == false) {
+      return <div>Error: Not able to initialize</div>;
+    } else if (isLoaded === false) {
       return <div>Loading...</div>;
     } else {
       return (
@@ -58,8 +88,19 @@ export class BusinessDetails extends Component {
           <fieldset>
             <h2>Enter Business Details</h2>
             <label>
-              <p>Business Name</p>
-              <input name="name" onChange={handleChange('businessName')} />
+              <p>Available Business</p>
+              <select onChange={this.handleState('business')}>{
+                  businesses.map(({ id, name }) =>
+                  <option key={id} value={id}>{name}</option>)
+              }</select>
+
+            </label>
+            <label>
+              <p>Available Providers</p>
+              <select onChange={this.handleState('provider')}>{
+                providers.map(({ id, name }) =>
+                  <option key={id} value={id}>{name}</option>)
+              }</select>
             </label>
             <label>
               <p>Loan Amount</p>

@@ -1,0 +1,91 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Swagger Loan Application Backend",
+        "description": "Decision API collection for loan application app",
+        "termsOfService": "http://swagger.io/terms/"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/v1/loan"
+        }
+    ],
+    "paths": {
+        "/approve": {
+            "post": {
+                "tags": [
+                    "Loan"
+                ],
+                "summary": "Return loan is approved for this user",
+                "description": "Return loan is approved for this user",
+                "operationId": "approve-loan",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "year",
+                                    "loanAmount",
+                                    "businessName",
+                                    "provider"
+                                ],
+                                "properties": {
+                                    "businessName": {
+                                        "type": "string"
+                                    },
+                                    "provider": {
+                                        "type": "string",
+                                        "enum": [
+                                            "XERO",
+                                            "MYOB"
+                                        ]
+                                    },
+                                    "year": {
+                                        "type": "string"
+                                    },
+                                    "loanAmount": {
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Loan Approval"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Error": {
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

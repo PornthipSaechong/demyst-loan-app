@@ -1,0 +1,111 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Swagger Loan Application Backend",
+        "description": "Accounting API collection for loan application app",
+        "termsOfService": "http://swagger.io/terms/"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/v1/accounts/"
+        }
+    ],
+    "paths": {
+        "/balanceSheet": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Return balance sheet belonging to this user",
+                "description": "Return balance sheet belonging to this user",
+                "operationId": "account-balance-sheet",
+                "parameters": [
+                    {
+                        "name": "businessName",
+                        "in": "query",
+                        "description": "business",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "provider",
+                        "in": "query",
+                        "description": "provider",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "XERO",
+                                "MYOB"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "balance sheet response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BalanceSheet"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BalanceSheet": {
+                "type": "object",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "profitOrLoss": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "assetsValue": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

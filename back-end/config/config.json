@@ -1,0 +1,13 @@
+{
+  "accountProviders": {
+    "XERO": {
+      "endpoint": "http://xero-back:5001/xero/balanceSheet"
+    },
+    "MYOB": {
+      "endpoint": "http://myob-back:5002/myob/balanceSheet"
+    }
+  },
+  "decisionEngine": {
+    "endpoint": "http://decision-back:5003/approve"
+  }
+}

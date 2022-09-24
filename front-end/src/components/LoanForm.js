@@ -1,6 +1,5 @@
 import React from 'react'
 import BusinessDetails from './BusinessDetails.js'
-import SelectProvider from './SelectProvider.js'
 import Review from './Review.js'
 import Success from './Success.js'
 import Failure from './Failure.js'
@@ -10,11 +9,11 @@ class LoanForm extends React.Component {
     super(props);
     this.state = {
       step: 1,
-      businessName: '',
-      businessYear: '',
-      loanAmount: '',
+      business: {},
+      loanAmount: 0,
       balanceSheet: [],
-      isApproved: false
+      provider: {},
+      approvalRate: 0
     };
   };
   
@@ -42,27 +41,26 @@ class LoanForm extends React.Component {
 
   // Handle fields from api
   saveData = input => data => {
-    console.log(input,data)
     this.setState({ [input]: data });
   }
 
   setSuccessCase = () => {
     this.setState({
-      step: 4
+      step: 3
     });
   }
 
   setFailureCase = () => {
     this.setState({
-      step: 5
+      step: 4
     });
   }
 
 
   render() {
     const { step } = this.state;
-    const { businessName, businessYear, providers, balanceSheet, loanAmount, isApproved } = this.state;
-    const values = { businessName, businessYear, providers, balanceSheet, loanAmount, isApproved };
+    const { business, provider, balanceSheet, loanAmount, approvalRate } = this.state;
+    const values = { business, provider, balanceSheet, loanAmount, approvalRate };
 
     switch (step) {
       case 1:
@@ -76,26 +74,18 @@ class LoanForm extends React.Component {
         );
       case 2:
         return (
-          <SelectProvider
+          <Review
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             saveData={this.saveData}
             values={values}
-            readState={this.readState}
+            setSuccessCase={this.setSuccessCase}
+            setFailureCase={this.setFailureCase}
           />
         );
       case 3:
-        return (
-          <Review
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            saveData={this.saveData}
-            values={values}
-          />
-        );
-      case 4:
-        return <Success/>;
+        return <Success values={values} />;
       case 4:
         return <Failure/>;
       default:
