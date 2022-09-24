@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "remove reactjs-front containers"
-docker stop reactjs-front
-docker rm reactjs-front
 
 echo "starting reactjs-front engine"
 docker build -t front-end:latest .
