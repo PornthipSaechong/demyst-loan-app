@@ -5,7 +5,7 @@ This web application is designed for Demyst assessment
 ## Setup
 
 1. Make sure that you have docker installed (https://docs.docker.com/get-docker/)
-2. Run `start.sh` in your terminal - wait for docker to spin up (there are 5 containers in total)
+2. Run `start.sh` in your terminal - images will be pulled from dockerhub, wait for docker to spin up (there are 5 containers in total)
 3. Navigate to `localhost:3000` in your browser. You should see a web form.
 
 ## Tear down
@@ -76,6 +76,9 @@ Running on port 5001, 5002, 5003
 3. **Decision**
   - `POST /approve?year=2022&businessName=business1&profitOrLoss=0&preAssessment=1` - approve or reject the application
 
+### Testing
 
+- back-end unit tests has been added for services and controllers
+- front-end integration test with mock api responses
 
 
