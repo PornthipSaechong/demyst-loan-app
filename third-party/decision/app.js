@@ -7,11 +7,9 @@ app.use(express.json())
 app.post('/approve', (req, res) => {
   const { year, businessName, profitOrLoss, preAssessment } = req.body
   // logic to approve or reject, this is an assumption
-  console.log('assessing', year, businessName, profitOrLoss, preAssessment)
-  let valid = false
-  if (preAssessment > 50) {
-    valid = true
-  }
+  console.log('assessing...', year, businessName, profitOrLoss, preAssessment)
+  // logic for assessment
+  const valid = true
 
   res.send(res.status(200).json({ approved: valid, approvalRate: preAssessment }))
 })
