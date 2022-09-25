@@ -3,6 +3,6 @@ const router = express.Router()
 
 const DecisionController = require('../controllers/decision.controller')
 
-router.post('/approve', DecisionController.getBalanceSheet)
+router.post('/approve', DecisionController.getDecision)
 
 module.exports = router

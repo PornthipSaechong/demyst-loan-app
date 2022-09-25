@@ -1,7 +1,7 @@
 const providerConfig = require('../config/config.json')
 const axios = require('axios')
 
-exports.getBalanceSheet = async function (year, businessName, profitOrLoss, averageAssetsValue, loanAmount) {
+exports.getDecision = async function (year, businessName, profitOrLoss, averageAssetsValue, loanAmount) {
   try {
     const decisionEngine = providerConfig.decisionEngine
     let preAssessment = 20

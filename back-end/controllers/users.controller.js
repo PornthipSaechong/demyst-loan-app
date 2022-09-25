@@ -1,14 +1,14 @@
-var UserService = require('../services/users.service')
+const UserService = require('../services/users.service')
 
-exports.getUsers = async function (req, res, next) {
+exports.getBusinesses = async function (req, res, next) {
   // Validate request parameters, queries using express-validator
 
   try {
-    var users = await UserService.getUsers()
+    const users = await UserService.getBusinesses()
 
     return res.status(200).json({ data: users })
   } catch (e) {
-    return res.status(400).json({ message: e.message })
+    return res.status(400).send()
   }
 }
 
@@ -16,7 +16,7 @@ exports.getProviders = async function (req, res, next) {
   // Validate request parameters, queries using express-validator
 
   try {
-    var providers = await UserService.getProviders()
+    const providers = await UserService.getProviders()
 
     return res.status(200).json({ data: providers })
   } catch (e) {
