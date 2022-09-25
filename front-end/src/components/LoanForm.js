@@ -15,6 +15,7 @@ class LoanForm extends React.Component {
       provider: {},
       approvalRate: 0
     };
+    this.setState = this.setState.bind(this)
   };
   
 

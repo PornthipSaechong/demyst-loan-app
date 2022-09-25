@@ -11,8 +11,8 @@ export class Success extends Component {
     return (
       <form id="form">
         <fieldset>
-          <h2>Congratulation your load has been approved!</h2>
-          <p>Loan is favored to be approved {values.approvalRate}% of the requested value</p>
+          <h2 role="heading">Congratulation your load has been approved!</h2>
+          <p role="sub-heading">Loan is favored to be approved {values.approvalRate}% of the requested value</p>
         </fieldset>
       </form>
     );

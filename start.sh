@@ -1,19 +1,15 @@
 #!/bin/bash
 
 echo "start third-party"
-cd third-party
-start.sh
-cd ..
+docker run --name xero-back -d -p 5001:5001 pornthipsc/demyst-assessment:xero-back
+docker run --name myob-back -d -p 5002:5002 pornthipsc/demyst-assessment:myob-back
+docker run --name decision-back -d -p 5003:5003 pornthipsc/demyst-assessment:decision-third-party
 
 echo "start back-end"
-cd back-end
-start.sh
-cd ..
+docker run --name python-back -d -p 5000:5000 pornthipsc/demyst-assessment:back-end
 
 echo "start front-end"
-cd front-end
-start.sh
-cd ..
+docker run --name reactjs-front -d -p 3000:3000 pornthipsc/demyst-assessment:front-end
 
 echo "remove network"
 docker network rm back-end-network

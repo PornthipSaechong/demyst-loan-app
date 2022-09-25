@@ -120,12 +120,12 @@ export class Review extends Component {
 
           <fieldset>
 
-            <h2>Review Balance Sheet</h2>
+            <h2 role="heading">Review Balance Sheet</h2>
 
-            <p>Business Name: <b>{values.business.name}</b></p>
-            <p>Year established: <b>{values.business.year}</b></p>
-            <p>Provider: <b>{values.provider.name}</b></p>
-            <p>Loan Amount: <b>{values.loanAmount}</b></p>
+            <p role="business">Business Name: <b>{values.business.name}</b></p>
+            <p role="year">Year established: <b>{values.business.year}</b></p>
+            <p role="provider">Provider: <b>{values.provider.name}</b></p>
+            <p role="loan">Loan Amount: <b>{values.loanAmount}</b></p>
 
             <table >
               <thead>
@@ -139,7 +139,7 @@ export class Review extends Component {
               <tbody>
 
                 {balanceSheet.map(d => {
-                  return <tr key={d.id}>
+                  return <tr key={d.year+d.month}>
                     <td>{d.year}</td>
                     <td>{d.month}</td>
                     <td>{d.profitOrLoss}</td>
@@ -154,8 +154,8 @@ export class Review extends Component {
                 </tr>
               </tbody>
             </table>
-            <button action="submit" onClick={this.back}>Back</button>
-            <button action="submit" onClick={this.continue}>Apply</button>
+            <button role="back" action="submit" onClick={this.back} type="button">Back</button>
+            <button role="apply" action="submit" onClick={this.continue} type="button">Apply</button>
             
           </fieldset>
         </form>

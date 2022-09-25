@@ -22,19 +22,19 @@ docker rm decision-back
 
 
 echo "remove front-end image"
-docker image rm front-end:latest
+docker image rm pornthipsc/demyst-assessment:front-end
 
 echo "remove python-back image"
-docker image rm back-end:latest
+docker image rm pornthipsc/demyst-assessment:back-end
 
 echo "remove xero-third-party image"
-docker image rm xero-third-party:latest
+docker image rm pornthipsc/demyst-assessment:xero-back
 
 echo "remove myob-third-party image"
-docker image rm myob-third-party:latest
+docker image rm pornthipsc/demyst-assessment:myob-back
 
 echo "remove decision-third-party image"
-docker image rm decision-third-party:latest
+docker image rm pornthipsc/demyst-assessment:decision-third-party
 
 echo "remove network"
 docker network rm back-end-network

@@ -86,10 +86,10 @@ export class BusinessDetails extends Component {
       return (
         <form id="form">
           <fieldset>
-            <h2>Enter Business Details</h2>
+            <h2 role="heading">Enter Business Details</h2>
             <label>
               <p>Available Business</p>
-              <select onChange={this.handleState('business')}>{
+              <select role="businesses" onChange={this.handleState('business')}>{
                   businesses.map(({ id, name }) =>
                   <option key={id} value={id}>{name}</option>)
               }</select>
@@ -97,17 +97,17 @@ export class BusinessDetails extends Component {
             </label>
             <label>
               <p>Available Providers</p>
-              <select onChange={this.handleState('provider')}>{
+              <select role="providers" onChange={this.handleState('provider')}>{
                 providers.map(({ id, name }) =>
                   <option key={id} value={id}>{name}</option>)
               }</select>
             </label>
             <label>
               <p>Loan Amount</p>
-              <input type="number" name="name" onChange={handleChange('loanAmount')} />
+              <input role="loan" type="number" name="name" onChange={handleChange('loanAmount')} />
             </label>
             <br></br>
-            <button action="submit" onClick={this.continue}>Next</button>
+            <button role="next" action="submit" onClick={this.continue} type="button">Next</button>
           </fieldset>     
         </form>
       );
